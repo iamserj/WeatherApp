@@ -1,5 +1,6 @@
 package ru.iamserj.weatherapp;
 
+import android.util.Log;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -14,15 +15,20 @@ import java.net.URL;
 
 public final class WeatherLoader {
 	
-	private static final String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&&apikey=%s&units=metric";
+	private static final String OPEN_WEATHER_MAP_API = "https://api.openweathermap.org/data/2.5/weather?q=%s&&apikey=%s&units=metric";
 	private static final String API_KEY = "b4ac708d44b9d2bf58d4abdbd0bf03ee";
 	private static final String RESPONSE = "cod";
 	private static final String NEW_LINE = "\n";
 	private static final int RESPONSE_SUCCESS = 200;
+	private static final String LOG_TAG = "-------------------->";
 	
-	static JSONObject getJsonData(String city) {
+	static JSONObject getJsonByCityName(String city) {
+		
 		try {
 			URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city, API_KEY));
+			
+			Log.d(LOG_TAG, url.toString());
+			
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -40,6 +46,10 @@ public final class WeatherLoader {
 				return null;//FIXME Обработка ошибки
 			}
 		} catch (Exception e) {
+			System.out.println("\n-------exception-------");
+			System.out.println(e);
+			System.out.println("-------exception-------");
+			Log.d(LOG_TAG, "Error requesting server");
 			return null; //FIXME Обработка ошибки
 		}
 	}

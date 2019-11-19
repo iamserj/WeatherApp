@@ -3,6 +3,8 @@ package ru.iamserj.weatherapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Typeface;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -38,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
 	private TextView currentTemperatureTextView;
 	private TextView weatherIcon;
 	
+	protected LocationManager locationManager;
+	protected LocationListener locationListener;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+		// TODO: update for Pie version
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -60,24 +68,41 @@ public class MainActivity extends AppCompatActivity {
 		weatherIcon.setTypeface(weatherFont);
 	}
 	
-	//Надуваем меню
+	// inflate menu (res/menu/weather.xml)
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.weather, menu);
 		return true;
 	}
 	
-	//Ловим нажатие кнопки меню
+	// menu item select handler
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.current_location) {
+			getCurrentLocation();
+			return true;
+		}
 		if (item.getItemId() == R.id.change_city) {
 			showInputDialog();
+			return true;
+		}
+		if (item.getItemId() == R.id.refresh_city) {
+			updateWeatherData(appCache.getSavedCity());
 			return true;
 		}
 		return false;
 	}
 	
-	//Показываем диалоговое окно с выбором города
+	
+	private void getCurrentLocation() {
+		// TODO: check permissions granted
+		// TODO: get location
+		// TODO: call WeatherLoader.getJsonByCityLocation
+		Toast.makeText(getApplicationContext(), "not implemented yet",
+				Toast.LENGTH_LONG).show();
+	}
+	
+	// show city select dialog
 	private void showInputDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(getString(R.string.change_city_dialog));
@@ -94,18 +119,19 @@ public class MainActivity extends AppCompatActivity {
 		builder.show();
 	}
 	
-	//Обновляем вид, сохраняем выбранный город
+	// Обновляем вид, сохраняем выбранный город
 	public void changeCity(String city) {
 		updateWeatherData(city);
 		appCache.saveCity(city);
 	}
 	
-	//Обновление/загрузка погодных данных
+	// udpate/download weather data
 	private void updateWeatherData(final String city) {
-		new Thread() {//Отдельный поток для запроса на сервер
+		// create new thread for URL request
+		new Thread() {
 			public void run() {
-				final JSONObject json = WeatherLoader.getJsonData(city);
-				// Вызов методов напрямую может вызвать runtime error
+				final JSONObject json = WeatherLoader.getJsonByCityName(city);
+				// running in main thread may cause runtime error
 				if (json == null) {
 					handler.post(new Runnable() {
 						public void run() {
@@ -126,7 +152,9 @@ public class MainActivity extends AppCompatActivity {
 	
 	//Обработка загруженных данных и обновление UI
 	private void renderWeather(JSONObject json) {
-		Log.d("Log", "json " + json.toString());
+		//Log.d("Log", "json " + json.toString());
+		Toast.makeText(getApplicationContext(), getString(R.string.weather_updated),
+				Toast.LENGTH_LONG).show();
 		try {
 			cityTextView.setText(json.getString("name").toUpperCase(Locale.US) + ", " + json.getJSONObject("sys").getString("country"));
 			

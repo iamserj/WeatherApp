@@ -2,7 +2,9 @@
 <resources>
 	<string name="app_name">WeatherApp</string>
 
-	<string name="change_city">Change city</string>
+	<string name="current_location">Use Current Location</string>
+	<string name="change_city">Select Custom City</string>
+	<string name="refresh_data">Refresh</string>
 	<string name="change_city_dialog">Change city</string>
 	<string name="go">Go</string>
 
@@ -15,8 +17,9 @@
 	<string name="weather_thunder">&#xf01e;</string>
 	<string name="weather_drizzle">&#xf01c;</string>
 
+	<string name="weather_updated">Weather updated.</string>
 	<string name="place_not_found">Sorry, no weather data found.</string>
 
 	<string name="connecting">Connecting…</string>
-	<string name="connecting_to_server">Соединение с сервером</string>
+	<string name="connecting_to_server">Connection awaiting</string>
 </resources>

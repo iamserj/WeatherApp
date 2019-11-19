@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	  xmlns:app="http://schemas.android.com/apk/res-auto">
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 
 	<item
-		android:id="@+id/change_city"
-		android:title="@string/change_city"
-		app:showAsAction="always"/>
+			android:id="@+id/current_location"
+			android:title="@string/current_location"
+			android:icon="@drawable/ic_location_on_black_24dp"
+			app:showAsAction="collapseActionView" />
+	<item
+			android:id="@+id/change_city"
+			android:title="@string/change_city"
+			android:icon="@drawable/ic_location_city_black_24dp"
+			app:showAsAction="collapseActionView" />
+
+	<item
+			android:id="@+id/refresh_city"
+			android:title="@string/refresh_data"
+			android:icon="@drawable/ic_update_black_24dp"
+			app:showAsAction="collapseActionView" />
 </menu>

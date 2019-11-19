@@ -6,6 +6,7 @@
 		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:gravity="center_vertical"
 		android:orientation="vertical"
 		tools:context=".MainActivity">
 
@@ -13,6 +14,7 @@
 			android:id="@+id/city_field"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
 			android:text="@string/connecting_to_server"
 			android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -20,15 +22,26 @@
 			android:id="@+id/updated_field"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			android:textSize="@dimen/updated_font_size"
 			tools:text="Updated" />
 
 	<TextView
+			android:id="@+id/current_temperature_field"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textSize="@dimen/temperature_font_size"
+			android:layout_marginTop="@dimen/activity_vertical_margin"
+			tools:text="Temperature" />
+
+	<TextView
 			android:id="@+id/weather_icon"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="@dimen/activity_vertical_margin"
+			android:layout_gravity="center_horizontal"
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:textSize="@dimen/icon_font_size"
 			tools:text="icon" />
@@ -37,15 +50,10 @@
 			android:id="@+id/details_field"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:textAlignment="center"
 			android:textAppearance="?android:attr/textAppearanceMedium"
 			tools:text="Details" />
 
-	<TextView
-			android:id="@+id/current_temperature_field"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textAppearance="?android:attr/textAppearanceLarge"
-			android:textSize="@dimen/temperature_font_size"
-			tools:text="Temperature" />
 
 </LinearLayout>
